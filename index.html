@@ -8,11 +8,22 @@
     <title>DC Comics!</title>
   </head>
   <body>
+    <!-- this is the div with all the splash screen elements -->
     <div id="first-screen">
       <h1>DC Comics Forever!</h1>
+      <button id="start-btn">Start Game</button>
     </div>
-    <div id="second-screen"></div>
-    <div id="third-screen"></div>
+    <!-- this is the div for the game canvas -->
+    <div id="second-screen">
+      <!-- this is a button to simulate that the game is over to test the screens! -->
+      <!-- I repeat! THIS is not a real button for the game :) -->
+      <button id="gameover">Game is over</button>
+    </div>
+    <!-- this is the div with all the game over screen elements -->
+    <div id="third-screen">
+      <h1>The Game is Over!</h1>
+      <button id="restart-btn">Try Again?</button>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
     <script src="script.js"></script>
   </body>

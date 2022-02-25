@@ -1,8 +1,14 @@
 console.log("Script connected! Let's get coding!");
 
+//all the screens organized with variables and meaningful names
 let firstScreen = document.querySelector("#first-screen");
 let secondScreen = document.querySelector("#second-screen");
 let thirdScreen = document.querySelector("#third-screen");
+
+//buttons organized with variables
+let startBtn = document.querySelector("#start-btn");
+let restartBtn = document.querySelector("#restart-btn");
+let gameOverBtn = document.querySelector("#gameover");
 
 let secondScreenWidth = 1000;
 let secondScreenHeight = 700;
@@ -21,7 +27,6 @@ function setup() {
   let canvas = createCanvas(secondScreenWidth, secondScreenHeight);
   canvas.parent("second-screen");
 }
-
 function draw() {
   //draw background for game from line 13
   background(bg);
@@ -36,7 +41,7 @@ function draw() {
     aquamanHeight
   );
 
-  // function to move my character left and right
+  // function to move my character left and right and check if he is on the screen
   if (keyIsPressed && keyCode === LEFT_ARROW && aquamanX > 20) {
     aquamanX -= 5;
   } else if (
@@ -47,3 +52,33 @@ function draw() {
     aquamanX += 5;
   }
 }
+//loading the window and showing the first screen and hiding the other two to start
+window.addEventListener("load", () => {
+  secondScreen.style.display = "none";
+  thirdScreen.style.display = "none";
+
+  //listener on the START button to hide the first screen and show the game canvas
+  startBtn.addEventListener("click", () => {
+    firstScreen.style.display = "none";
+    secondScreen.style.display = "flex";
+    thirdScreen.style.display = "flex";
+  });
+
+  //listener on the RE-START button to hide the GAME OVER screen and show the game canvas
+  restartBtn.addEventListener("click", () => {
+    firstScreen.style.display = "none";
+    secondScreen.style.display = "flex";
+    thirdScreen.style.display = "none";
+    //loop is used to start the game again after the gameover screen stops it
+    loop();
+  });
+
+  //just a button to simulate that the game is over
+  gameOverBtn.addEventListener("click", () => {
+    firstScreen.style.display = "none";
+    secondScreen.style.display = "none";
+    thirdScreen.style.display = "flex";
+    //no loop is used to stop the draw function so it is not always running behind the scenes
+    noLoop();
+  });
+});
