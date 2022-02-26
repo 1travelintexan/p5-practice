@@ -13,15 +13,17 @@ let gameOverBtn = document.querySelector("#gameover");
 let secondScreenWidth = 1000;
 let secondScreenHeight = 700;
 
-//character size and position variables
-let aquamanX = 20;
+//all character variables
 let aquamanHeight = 300;
 let aquamanWidth = 300;
+let aquamanX = 20;
+//this is the screen height minus the height of the character minus 20 for bottom space. Remember minus is up ^ in canvas!
+let aquamanStartY = secondScreenHeight - aquamanHeight - 20;
 
 function setup() {
   //load all the images you will need here
   bg = loadImage("./images/aquabg.jpeg");
-  aquaman = loadImage("./images/aquaman.png");
+  aquaman = loadImage("./images/aquaman.png"); //character size and position variables
 
   //create the canvas and append it to the div from html
   let canvas = createCanvas(secondScreenWidth, secondScreenHeight);
@@ -32,16 +34,9 @@ function draw() {
   background(bg);
 
   //draw image character of aquaman from line 14
-  image(
-    aquaman,
-    aquamanX,
-    //this is the screen height minus the height of the character minus 20 for bottom space. Remember minus is up ^ in canvas!
-    secondScreenHeight - aquamanHeight - 20,
-    aquamanWidth,
-    aquamanHeight
-  );
+  image(aquaman, aquamanX, aquamanStartY, aquamanWidth, aquamanHeight);
 
-  // function to move my character left and right and check if he is on the screen
+  // function to move my character left, right, up and down and checks if he is on the screen
   if (keyIsPressed && keyCode === LEFT_ARROW && aquamanX > 20) {
     aquamanX -= 5;
   } else if (
@@ -50,6 +45,14 @@ function draw() {
     aquamanX + aquamanWidth < secondScreenWidth
   ) {
     aquamanX += 5;
+  } else if (keyIsPressed && keyCode === UP_ARROW && aquamanStartY > 0) {
+    aquamanStartY -= 5;
+  } else if (
+    keyIsPressed &&
+    keyCode === DOWN_ARROW &&
+    aquamanStartY + aquamanHeight < secondScreenHeight
+  ) {
+    aquamanStartY += 5;
   }
 }
 //loading the window and showing the first screen and hiding the other two to start
@@ -61,7 +64,7 @@ window.addEventListener("load", () => {
   startBtn.addEventListener("click", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "flex";
-    thirdScreen.style.display = "flex";
+    thirdScreen.style.display = "none";
   });
 
   //listener on the RE-START button to hide the GAME OVER screen and show the game canvas
