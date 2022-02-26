@@ -1,6 +1,6 @@
 console.log("Script connected! Let's get coding!");
 //gameover starts as false!!!
-let gameover = false;
+let gameIsOver = false;
 
 //all the screens organized with variables and meaningful names
 let firstScreen = document.querySelector("#first-screen");
@@ -12,38 +12,37 @@ let startBtn = document.querySelector("#start-btn");
 let restartBtn = document.querySelector("#restart-btn");
 let gameOverBtn = document.querySelector("#gameover");
 
-let secondScreenWidth = 1000;
-let secondScreenHeight = 700;
-
 //all character variables
-let aquamanHeight = 200;
-let aquamanWidth = 200;
+let aquamanHeight = 150;
+let aquamanWidth = 150;
 let aquamanX = 20;
 //this is the screen height minus the height of the character minus 20 for bottom space. Remember minus is up ^ in canvas!
-let aquamanStartY = secondScreenHeight - aquamanHeight - 20;
+let aquamanStartY = 700 - aquamanHeight - 20;
 
 //all object variables
 let sharkX = 1000;
 let sharkY = 20;
 let sharkLength = 500;
 let sharkHeight = 300;
-alligatorX = 600;
 
 //This is the array of objects to loop over
 let objectArray = [
   { x: sharkX, y: sharkY },
-  { x: sharkX + 800, y: sharkY + 200 },
-  { x: sharkX + 1400, y: sharkY + 400 },
+  { x: sharkX + 1200, y: sharkY + 200 },
+  { x: sharkX + 2000, y: sharkY + 400 },
 ];
 
-function setup() {
+//this is a better place to load all images. It runs once before setup
+function preload() {
   //load all the images you will need here
   bg = loadImage("./images/aquabg.jpeg");
   aquaman = loadImage("./images/aquaman.png"); //character size and position variables
   sharkImg = loadImage("./images/shark.png");
-  alligatorImg = loadImage("./images/alligator.png");
+}
+
+function setup() {
   //create the canvas and append it to the div from html
-  let canvas = createCanvas(secondScreenWidth, secondScreenHeight);
+  let canvas = createCanvas(1000, 700);
   canvas.parent("second-screen");
 }
 function draw() {
@@ -52,7 +51,6 @@ function draw() {
 
   //draw image character of aquaman and the objects
   image(aquaman, aquamanX, aquamanStartY, aquamanWidth, aquamanHeight);
-  image(alligatorImg, alligatorX, 450, 400, 400);
 
   //for loop for the looping of the objectArray which is x and y coordinates of three objects.
   // Then draw the image with each element of the array as the x and y, this will loop through as we move the object from right to left by subtracting the x by 2
@@ -64,7 +62,18 @@ function draw() {
       sharkLength,
       sharkHeight
     );
-    objectArray[i].x -= 2;
+    objectArray[i].x -= 4;
+
+    //collision with objects
+    if (
+      aquamanStartY >= objectArray[i].y + 20 &&
+      aquamanStartY <= objectArray[i].y + sharkHeight - 40 &&
+      aquamanX + aquamanWidth >= objectArray[i].x &&
+      aquamanX <= objectArray[i].x + sharkLength
+    ) {
+      gameIsOver = true;
+    }
+
     //this if statement checks if the image has past 0 and then resets the x so it will come again from the right
     if (objectArray[i].x < -500) {
       objectArray[i].x = 2000;
@@ -72,12 +81,12 @@ function draw() {
   }
 
   // function to move my character left, right, up and down and checks if he is on the screen
-  if (keyIsPressed && keyCode === LEFT_ARROW && aquamanX > 20) {
+  if (keyIsPressed && keyCode === LEFT_ARROW && aquamanX > 0) {
     aquamanX -= 5;
   } else if (
     keyIsPressed &&
     keyCode === RIGHT_ARROW &&
-    aquamanX + aquamanWidth < secondScreenWidth
+    aquamanX + aquamanWidth < width
   ) {
     aquamanX += 5;
   } else if (keyIsPressed && keyCode === UP_ARROW && aquamanStartY > 0) {
@@ -85,13 +94,13 @@ function draw() {
   } else if (
     keyIsPressed &&
     keyCode === DOWN_ARROW &&
-    aquamanStartY + aquamanHeight < secondScreenHeight
+    aquamanStartY + aquamanHeight < height
   ) {
     aquamanStartY += 5;
   }
 
   //if the game is over then call the game over function
-  if (gameover) {
+  if (gameIsOver) {
     gameOver();
   }
 }
@@ -121,7 +130,7 @@ window.addEventListener("load", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "flex";
     thirdScreen.style.display = "none";
-    gameover = false;
+    gameIsOver = false;
     //loop is used to start the game again after the gameover screen stops it
     objectArray = [
       { x: sharkX, y: sharkY },
@@ -133,6 +142,6 @@ window.addEventListener("load", () => {
 
   //just a button to simulate that the game is over
   gameOverBtn.addEventListener("click", () => {
-    gameover = true;
+    gameIsOver = true;
   });
 });
