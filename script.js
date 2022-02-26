@@ -1,4 +1,6 @@
 console.log("Script connected! Let's get coding!");
+//gameover starts as false!!!
+let gameover = false;
 
 //all the screens organized with variables and meaningful names
 let firstScreen = document.querySelector("#first-screen");
@@ -68,10 +70,6 @@ function draw() {
       objectArray[i].x = 2000;
     }
   }
-  // sharkX -= 2;
-  // if (sharkX < -500) {
-  //   sharkX = 1000;
-  // }
 
   // function to move my character left, right, up and down and checks if he is on the screen
   if (keyIsPressed && keyCode === LEFT_ARROW && aquamanX > 20) {
@@ -91,6 +89,20 @@ function draw() {
   ) {
     aquamanStartY += 5;
   }
+
+  //if the game is over then call the game over function
+  if (gameover) {
+    gameOver();
+  }
+}
+
+//this is what happens when the game is over. Hide the game screen, stop the draw function and reset the objects and show the game over screen
+function gameOver() {
+  firstScreen.style.display = "none";
+  secondScreen.style.display = "none";
+  thirdScreen.style.display = "flex";
+  //no loop is used to stop the draw function so it is not always running behind the scenes
+  noLoop();
 }
 //loading the window and showing the first screen and hiding the other two to start
 window.addEventListener("load", () => {
@@ -109,6 +121,7 @@ window.addEventListener("load", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "flex";
     thirdScreen.style.display = "none";
+    gameover = false;
     //loop is used to start the game again after the gameover screen stops it
     objectArray = [
       { x: sharkX, y: sharkY },
@@ -120,11 +133,6 @@ window.addEventListener("load", () => {
 
   //just a button to simulate that the game is over
   gameOverBtn.addEventListener("click", () => {
-    firstScreen.style.display = "none";
-    secondScreen.style.display = "none";
-    thirdScreen.style.display = "flex";
-
-    //no loop is used to stop the draw function so it is not always running behind the scenes
-    noLoop();
+    gameover = true;
   });
 });
