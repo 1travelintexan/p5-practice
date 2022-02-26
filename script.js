@@ -30,8 +30,8 @@ alligatorX = 600;
 //This is the array of objects to loop over
 let objectArray = [
   { x: sharkX, y: sharkY },
-  { x: sharkX + 500, y: sharkY + 200 },
-  { x: sharkX + 1000, y: sharkY + 400 },
+  { x: sharkX + 800, y: sharkY + 200 },
+  { x: sharkX + 1400, y: sharkY + 400 },
 ];
 
 function setup() {
@@ -52,7 +52,8 @@ function draw() {
   image(aquaman, aquamanX, aquamanStartY, aquamanWidth, aquamanHeight);
   image(alligatorImg, alligatorX, 450, 400, 400);
 
-  //movement of the objects
+  //for loop for the looping of the objectArray which is x and y coordinates of three objects.
+  // Then draw the image with each element of the array as the x and y, this will loop through as we move the object from right to left by subtracting the x by 2
   for (let i = 0; i < objectArray.length; i++) {
     image(
       sharkImg,
@@ -62,6 +63,7 @@ function draw() {
       sharkHeight
     );
     objectArray[i].x -= 2;
+    //this if statement checks if the image has past 0 and then resets the x so it will come again from the right
     if (objectArray[i].x < -500) {
       objectArray[i].x = 2000;
     }
@@ -108,6 +110,11 @@ window.addEventListener("load", () => {
     secondScreen.style.display = "flex";
     thirdScreen.style.display = "none";
     //loop is used to start the game again after the gameover screen stops it
+    objectArray = [
+      { x: sharkX, y: sharkY },
+      { x: sharkX + 800, y: sharkY + 200 },
+      { x: sharkX + 1400, y: sharkY + 400 },
+    ];
     loop();
   });
 
@@ -116,6 +123,7 @@ window.addEventListener("load", () => {
     firstScreen.style.display = "none";
     secondScreen.style.display = "none";
     thirdScreen.style.display = "flex";
+
     //no loop is used to stop the draw function so it is not always running behind the scenes
     noLoop();
   });
