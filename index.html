@@ -14,14 +14,13 @@
       <button id="start-btn">Start Game</button>
     </div>
     <!-- this is the div for the game canvas -->
-    <div id="second-screen">
-      <!-- this is a button to simulate that the game is over to test the screens! -->
-      <!-- I repeat! THIS is not a real button for the game :) -->
-      <button id="gameover">Game is over</button>
-    </div>
+    <div id="second-screen"></div>
     <!-- this is the div with all the game over screen elements -->
     <div id="third-screen">
-      <h1>The Game is Over!</h1>
+      <div class="third-screen-inner-div">
+        <h1>The fight is Over!</h1>
+        <h3>Your Score was: <span id="score"></span></h3>
+      </div>
       <button id="restart-btn">Try Again?</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>

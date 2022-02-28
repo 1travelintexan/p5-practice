@@ -19,11 +19,13 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 #first-screen h1 {
   color: rgb(230, 255, 1);
   text-shadow: 4px 4px 4px black;
   font-size: 4rem;
 }
+
 #first-screen button {
   background-color: rgb(7, 253, 68);
   font-size: 3rem;
@@ -32,6 +34,7 @@ body {
   border-radius: 10px;
   border: 4px solid rgba(255, 255, 255, 0);
 }
+
 #first-screen button:hover {
   border: 4px solid rgb(255, 255, 255);
 }
@@ -39,19 +42,28 @@ body {
 #third-screen {
   width: 90vw;
   height: 80vh;
+  padding: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   flex-direction: column;
   background-image: url("./images/gameover.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.third-screen-inner-div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
 #third-screen h1 {
   color: rgb(253, 255, 255);
   text-shadow: 4px 4px 4px rgb(0, 224, 224);
-  font-size: 6rem;
+  font-size: 5rem;
 }
+
 #third-screen button {
   background-color: rgb(7, 245, 253);
   font-size: 3rem;
@@ -60,6 +72,13 @@ body {
   border-radius: 10px;
   border: 4px solid rgba(255, 255, 255, 0);
 }
+
+#third-screen h3 {
+  color: gold;
+  font-size: 4rem;
+  text-shadow: 4px 4px 2px white;
+}
+
 #third-screen button:hover {
   border: 4px solid rgb(255, 255, 255);
 }
