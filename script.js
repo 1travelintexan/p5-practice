@@ -1,6 +1,7 @@
 console.log("Script connected! Let's get coding!");
 //gameover starts as false!!!
 let gameIsOver = false;
+//variable for the score to be incremented on line 134 when the shark passes zero
 let score = 0;
 
 //all the screens organized with variables and meaningful names
@@ -95,6 +96,7 @@ function draw() {
   //draw background for game from line 13
   background(bg);
 
+  //255 is a white color for p5
   fill(255);
   text("Score:" + " " + score, width - 300, 60);
 
@@ -123,10 +125,10 @@ function draw() {
     ) {
       gameIsOver = true;
     }
+
     // because the shark doesnt always perfectly land on a certain number
     //you may need to test for a range that is equal to the speed
     //in this case the shark moves -=5 so I check for a range of 5. If I check for more then I may get +2 on the score
-
     if (currentObject.x < 5 && currentObject.x >= 0) {
       score++;
     }
@@ -168,6 +170,7 @@ function gameOver() {
   firstScreen.style.display = "none";
   secondScreen.style.display = "none";
   thirdScreen.style.display = "flex";
+  //this is where we actually display the score on the gameover screen, make sure to set it back to zero on the restart button
   gameOverScore.innerHTML = score;
   //no loop is used to stop the draw function so it is not always running behind the scenes
   noLoop();
